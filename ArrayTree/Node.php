@@ -21,7 +21,7 @@ namespace ArrayTree;
  * limitations under the License.
  * 
  * @version 0.9
- * @author  Aaron Jan <https://github.com/aaronjan>
+ * @author  Aaron Jan <https://github.com/AaronJan/ArrayTree>
  * @link    https://github.com/aaronjan
  * @license http://www.apache.org/licenses/LICENSE-2.0 The Apache License V2
  */
