@@ -1,7 +1,8 @@
 ArrayTree
 =========
 
-ArrayTree is a tool for converting 2-d array to tree structure array.
+ArrayTree is a tool for converting 2-d array to tree structure(nested or hierarchical) array.
+
 
 Here is an example:
 
