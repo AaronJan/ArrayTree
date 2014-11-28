@@ -25,14 +25,14 @@ $dataList = array(
 );
 
 //Converting
-$categoryTree = new \ArrayTree\Tree($dataList);
+$dataTree = new \ArrayTree\Tree($dataList);
 
-$categoryTree->setIdKey('id');
-$categoryTree->setParentIdKey('parent_id');
-$categoryTree->setResultChildKey('childs');
-$categoryTree->setResultParentIdsKey('parent_ids');
+$dataTree->setIdKey('id');
+$dataTree->setParentIdKey('parent_id');
+$dataTree->setResultChildKey('childs');
+$dataTree->setResultParentIdsKey('parent_ids');
 
-$dataTreeList = $categoryTree->getArrayTree();
+$dataTreeList = $dataTree->getArrayTree();
 
 print_r($dataTreeList);
 
@@ -65,9 +65,48 @@ array(
 */
 ```
 
+---------------------------------------
+## \ArrayTree\Tree
+
+### __construct([$dataArray])
+You can pass data array to constructor.
+
+### setData(array $dataList)
+Set data array.
+
+### addData(array $dataEntry)
+Add a data entry to data array.
+
+### setIdKey($idKey)
+Specify key name for data array's id attribute.
+
+### setParentIdKey($parentKey)
+Specify key name for data array's parent id attribute.
+
+### setResultChildKey($childKey)
+Specify key name of result for store child arrays.
+
+### setResultParentIdsKey($parentIdsKey)
+Specify key name of result for store parent nodes' ids.
+
+### getArrayTree()
+Convert data to nodes, then converting nodes to array-tree-style nested array like the example above.
+
+### getArray()
+Convert data to nodes, then converting nodes to array.
+
+If you only want the "parent ids" results and a 2-d array, you can use this.
+
+---------------------------------------
+## \ArrayTree\Node
+
+Linked-list helper class.
+
+---------------------------------------
 
 ## TODO
 
-Write more docs
-Write tests
+Write docs about \ArrayTree\Node
+
+Write more useful examples
 

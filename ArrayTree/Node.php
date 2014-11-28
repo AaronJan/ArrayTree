@@ -33,8 +33,8 @@ namespace ArrayTree;
  * 
  */
 
-class Node {
-    
+class Node
+{
     /**
      * Auto-generated id
      *
@@ -69,10 +69,10 @@ class Node {
      *
      * @return object
      */
-    public function __construct ($data, $id = false)
+    public function __construct($data, $id = false)
     {
         $this->data = $data;
-        $this->id = $id ? $id : uniqid('aj_tree', true);
+        $this->id = $id ? $id : uniqid('array_tree', true);
         
         return $this;
     }
@@ -82,7 +82,7 @@ class Node {
      *
      * @return object
      */
-    public function attachTo ($parentNode)
+    public function attachTo($parentNode)
     {
         $parentNode->appendChild($this);
     }
@@ -92,7 +92,7 @@ class Node {
      *
      * @return object
      */
-    public function setParentNode ($parentNode)
+    public function setParentNode($parentNode)
     {
         $this->_parentNode = $parentNode;
     }
@@ -102,7 +102,7 @@ class Node {
      *
      * @return void
      */
-    public function appendChild ($childNode)
+    public function appendChild($childNode)
     {
         $this->_childNodes[$childNode->id] = $childNode;
         $childNode->setParentNode($this);
@@ -113,7 +113,7 @@ class Node {
      *
      * @return void
      */
-    public function detach ()
+    public function detach()
     {
         $this->_parentNode->removeChild($this);
     }
@@ -123,7 +123,7 @@ class Node {
      *
      * @return void
      */
-    public function removeChild ($childNode)
+    public function removeChild($childNode)
     {
         unset($this->_childNodes[$childNode->id]);
         $childNode->setParentNode(null);
@@ -134,7 +134,7 @@ class Node {
      *
      * @return array
      */
-    public function getAllChildNode ()
+    public function getAllChildNode()
     {
         return $this->_childNodes;
     }
@@ -144,7 +144,7 @@ class Node {
      *
      * @return \ArrayTree\Node | bool
      */
-    public function getParentNode ()
+    public function getParentNode()
     {
         return $this->_parentNode ? $this->_parentNode : false;
     }

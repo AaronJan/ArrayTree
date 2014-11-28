@@ -26,8 +26,8 @@ namespace ArrayTree;
  * @license http://www.apache.org/licenses/LICENSE-2.0 The Apache License V2
  */
 
-class Tree {
-    
+class Tree
+{
     /**
      * Data that use for generate array tree
      *
@@ -89,7 +89,7 @@ class Tree {
      *
      * @return object
      */
-    public function __construct (array $dataList = array())
+    public function __construct(array $dataList = array())
     {
         if (!empty($dataList)) {
             $this->setData($dataList);
@@ -99,78 +99,77 @@ class Tree {
     }
     
     /**
-     * Set key name for array's id
+     * Specify key name for data array's id attribute
      *
      * @return void
      */
-    public function setIdKey ($idKey)
+    public function setIdKey($idKey)
     {
         $this->_markChange();
         $this->_idKey = $idKey;
     }
     
     /**
-     * Set key name for array's parent id
+     * Specify key name for data array's parent id attribute
      *
      * @return void
      */
-    public function setParentIdKey ($parentKey)
+    public function setParentIdKey($parentKey)
     {
         $this->_markChange();
         $this->_parentIdKey = $parentKey;
     }
     
     /**
-     * Set key name for store child arrays
+     * Specify key name of result for store child arrays
      *
      * @return void
      */
-    public function setResultChildKey ($childKey)
+    public function setResultChildKey($childKey)
     {
         $this->_markChange();
         $this->_resultChildKey = $childKey;
     }
     
     /**
-     * Set key name for store parent nodes' ids
+     * Specify key name of result for store parent nodes' ids
      *
      * @return void
      */
-    public function setResultParentIdsKey ($parentIdsKey)
+    public function setResultParentIdsKey($parentIdsKey)
     {
         $this->_markChange();
         $this->_resultParentIdsKey = $parentIdsKey;
     }
     
-    
     /**
-     * Set data for node generation
+     * Set data array
      *
      * @return void
      */
-    public function setData ($dataList)
+    public function setData(array $dataList)
     {
         $this->_markChange();
         $this->_dataList = $dataList;
     }
     
     /**
-     * add a data entry for node generation
+     * Add a data entry to data array
      *
      * @return void
      */
-    public function addData ($dataEntry)
+    public function addData(array $dataEntry)
     {
         $this->_markChange();
         $this->_dataList[] = $dataEntry;
     }
     
     /**
-     * Convert data to nodes, and then converting nodes to array tree
+     * Convert data to nodes, then converting nodes to array-tree-style nested array
      *
      * @return array
      */
-    public function getArrayTree ()
+    public function getArrayTree()
     {
         if (!$this->_builded) {
             $this->buildTree();
@@ -181,11 +180,12 @@ class Tree {
     }
     
     /**
-     * Convert data to nodes, and then converting nodes to array
+     * Convert data to nodes, then converting nodes to array.
+     * If you only want the "parent ids" results and a 2-d array, you can use this.
      *
      * @return array
      */
-    public function getArray ()
+    public function getArray()
     {
         if (!$this->_builded) {
             $this->buildTree();
@@ -205,7 +205,7 @@ class Tree {
      *
      * @return boolean
      */
-    public function buildTree ()
+    public function buildTree()
     {
         // reunion dataArray buy "id" value, and get all "parent ids".
         $reunionedList = array();
@@ -234,7 +234,7 @@ class Tree {
      *
      * @return boolean
      */
-    protected function _generateNode ($reunionedList)
+    protected function _generateNode($reunionedList)
     {
         $this->_nodes = array();
         $this->_nodes[$this->_rootId] = new Node(array(), $this->_rootId);
@@ -250,7 +250,7 @@ class Tree {
      *
      * @return boolean
      */
-    protected function _organizeNode ()
+    protected function _organizeNode()
     {
         //Get all child nodes' keys except root node
         $childIds = array_diff(array_keys($this->_nodes), array($this->_rootId));
@@ -266,8 +266,8 @@ class Tree {
         if ($this->_resultParentIdsKey) {
             $rootNodeId = $this->_rootId;
             foreach ($childIds as $eachId) {
-                $childNode                             = $this->_nodes[$eachId];
-                $parentIds                             = $this->_getNodeParentIdRecursively($childNode, $rootNodeId);
+                $childNode                                   = $this->_nodes[$eachId];
+                $parentIds                                   = $this->_getNodeParentIdRecursively($childNode, $rootNodeId);
                 $childNode->data[$this->_resultParentIdsKey] = $parentIds;
             }
         }
@@ -280,7 +280,7 @@ class Tree {
      *
      * @return array
      */
-    protected function _getNodeParentIdRecursively ($node, $rootNodeId, $callOnDemand = true)
+    protected function _getNodeParentIdRecursively($node, $rootNodeId, $callOnDemand = true)
     {
         $returnValue = array();
         
@@ -295,7 +295,7 @@ class Tree {
         $returnValue[] = $this->_getNodeParentIdRecursively($parentNode, $rootNodeId, false);
         
         if ($callOnDemand) {
-            $returnValue = $this->_flattenArray($returnValue);
+            $returnValue = self::FlattenArray($returnValue);
         }
         
         return $returnValue;
@@ -306,7 +306,7 @@ class Tree {
      *
      * @return array
      */
-    protected function _getAllNodeDataRecursively ($treeNode)
+    protected function _getAllNodeDataRecursively($treeNode)
     {
         $returnArr = $treeNode->data;
         $returnArr[$this->_resultChildKey] = array();
@@ -326,15 +326,15 @@ class Tree {
      *
      * @return array
      */
-    protected function _flattenArray ($array)
+    protected static function FlattenArray($array)
     {
         $returnArray = array();
-        $flattenFunc = function ($item, $key, $flatArray) {
+        $flattenFunc = function ($item, $key) use(&$returnArray) {
             if (!is_array($item)) {
-                $flatArray[] = $item;
+                $returnArray[] = $item;
             }
         };
-        array_walk_recursive($array, $flattenFunc, &$returnArray);
+        array_walk_recursive($array, $flattenFunc);
         
         return $returnArray;
     }
@@ -344,7 +344,7 @@ class Tree {
      *
      * @return void
      */
-    protected function _markChange ()
+    protected function _markChange()
     {
         $this->_builded = false;
     }
