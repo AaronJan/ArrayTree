@@ -1,7 +1,7 @@
 ArrayTree
 =========
 
-ArrayTree is a tool for converting 2-d array to tree structure(nested or hierarchical) array.
+ArrayTree is a tool for converting 2-d array to tree structure(also called nested or hierarchical) array.
 
 
 Here is an example:
@@ -69,31 +69,34 @@ array(
 ---------------------------------------
 ## \ArrayTree\Tree
 
-### __construct([$dataArray])
+You only need to deal with this class.
+
+
+#### __construct([$dataArray])
 You can pass data array to constructor.
 
-### setData(array $dataList)
+#### setData(array $dataList)
 Set data array.
 
-### addData(array $dataEntry)
+#### addData(array $dataEntry)
 Add a data entry to data array.
 
-### setIdKey($idKey)
+#### setIdKey($idKey)
 Specify key name for data array's id attribute.
 
-### setParentIdKey($parentKey)
+#### setParentIdKey($parentKey)
 Specify key name for data array's parent id attribute.
 
-### setResultChildKey($childKey)
+#### setResultChildKey($childKey)
 Specify key name of result for store child arrays.
 
-### setResultParentIdsKey($parentIdsKey)
+#### setResultParentIdsKey($parentIdsKey)
 Specify key name of result for store parent nodes' ids.
 
-### getArrayTree()
+#### getArrayTree()
 Convert data to nodes, then converting nodes to array-tree-style nested array like the example above.
 
-### getArray()
+#### getArray()
 Convert data to nodes, then converting nodes to array.
 
 If you only want the "parent ids" results and a 2-d array, you can use this.
