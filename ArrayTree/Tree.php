@@ -219,7 +219,7 @@ class Tree
         // get root node id (only one)
         $rootIds   = array_diff($parentIds, array_keys($reunionedList));
         if (count($rootIds) != 1) {
-            throw new Exception('Can only have one root node.');
+            throw new \Exception('Can only have one root node.');
         }
         $this->_rootId = array_pop($rootIds);
         // convert data to node objects
@@ -286,7 +286,7 @@ class Tree
         
         $parentNode = $node->getParentNode();
         if ($parentNode === false) {
-            throw new Exception('Oops, seems there\'s one node hasn\'t parent node, and it isn\'t root node.');
+            throw new \Exception('Oops, seems there\'s one node hasn\'t parent node, and it isn\'t root node.');
         } elseif ($parentNode->id == $rootNodeId) {
             return array();
         }
